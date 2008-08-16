@@ -35,6 +35,12 @@ ActionController::Routing::Routes.draw do |map|
 
   # See how all your routes lay out with "rake routes"
 
+  # OpenID authentication
+  map.resource :login, :member => { :complete => :get, :destroy => :get }
+
+  # Default
+  map.root :controller => 'log_entries'
+
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
