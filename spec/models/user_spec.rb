@@ -1,7 +1,16 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe User, "new entries" do
+describe User do
   fixtures :users
+
+  it 'should respond to user attributes' do
+    user = User.new
+    user.should respond_to(:openid_identifier)
+    user.should respond_to(:nickname)
+    user.should respond_to(:fullname)
+    user.should respond_to(:email)
+    user.should have_many(:log_entries)
+  end
 
   it "should not be valid with a duplicate OpenID identifier" do
     existing_user = User.find(:first)

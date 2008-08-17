@@ -1,2 +1,7 @@
 test_user1:
-    openid_identifier: "http://test.open.id"
+    id: 1
+    openid_identifier: 'http://user1.open.id'
+
+test_user2:
+    id: 2
+    openid_identifier: 'http://user2.open.id'
