@@ -48,15 +48,9 @@ class LoginsController < ApplicationController
     oidresp = consumer.complete(parameters, current_url)
     case oidresp.status
     when OpenID::Consumer::FAILURE
-      if oidresp.display_identifier
-        flash[:error] = ("Verification of #{oidresp.display_identifier}"\
-                         " failed: #{oidresp.message}")
-      else
-        flash[:error] = "Verification failed: #{oidresp.message}"
-      end
+      session[:user] = nil
+      flash[:error] = "OpenID login failed: #{oidresp.message}"
     when OpenID::Consumer::SUCCESS
-      flash[:success] = ("Verification of #{oidresp.display_identifier}"\
-                         " succeeded.")
       sreg_resp = OpenID::SReg::Response.from_success_response(oidresp)
       user_info = sreg_resp.data.merge({:openid_identifier => oidresp.display_identifier})
       if (user = User.find_or_create_by_openid_identifier(user_info))
@@ -64,8 +58,10 @@ class LoginsController < ApplicationController
         flash[:success] = 'OpenID login successful'
       end
     when OpenID::Consumer::SETUP_NEEDED
+      session[:user] = nil
       flash[:alert] = "Immediate request failed - Setup Needed"
     when OpenID::Consumer::CANCEL
+      session[:user] = nil
       flash[:alert] = "OpenID transaction cancelled."
     else
     end
