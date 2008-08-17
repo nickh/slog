@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080816044228) do
+ActiveRecord::Schema.define(:version => 20080817150202) do
 
   create_table "log_entries", :force => true do |t|
     t.datetime "created_at"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20080816044228) do
     t.integer  "days_onboard"
     t.integer  "night_hours"
     t.text     "notes"
+    t.integer  "user_id"
   end
 
   create_table "sessions", :force => true do |t|

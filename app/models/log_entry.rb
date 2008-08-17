@@ -1,4 +1,13 @@
 class LogEntry < ActiveRecord::Base
-  # TODO: certified_by (foreign key?), equipment_used (equipment types, reg#)
-  validates_presence_of :departed_at, :arrived_at
+  belongs_to :user
+
+  validates_presence_of :user
+
+  def self.user_entries(user_id)
+    self.find(:all, :conditions => ['user_id=?', user_id], :order => 'id DESC')
+  end
+  
+  def self.recent_entries
+    
+  end
 end
