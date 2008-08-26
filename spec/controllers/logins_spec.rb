@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe LoginsController, "with an OpenID identifier" do
+describe LoginsController, "create with an OpenID identifier" do
   fixtures :users
 
   test_identifier = 'http://my.openid.id'
