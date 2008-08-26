@@ -9,7 +9,10 @@ describe User do
     user.should respond_to(:nickname)
     user.should respond_to(:fullname)
     user.should respond_to(:email)
-    user.should have_many(:log_entries)
+  end
+
+  it 'should have many log entries' do
+    User.new.should have_many(:log_entries)
   end
 
   it "should not be valid with a duplicate OpenID identifier" do

@@ -1,5 +1,30 @@
 valid_entry:
-    id: 1
     user_id: 1
     departed_at: "2008-08-10 12:00:00"
     arrived_at:  "2008-08-10 16:00:00"
+
+# The log_entry controller test needs entries from multiple users
+# to test that logged in users see only their entries, and not-logged-in
+# users see the most recent completed entries.
+
+# Pretend these two users went sailing together every day for a month
+<% (1..31).each do |i| %>
+user1_entry<%= i %>:
+    user_id: 1
+    departed_at: <%= sprintf "2008-09-%02d 12:30:00", i %>
+    arrived_at:  <%= sprintf "2008-09-%02d 16:30:00", i %>
+
+user2_entry<%= i %>:
+    user_id: 2
+    departed_at: <%= sprintf "2008-09-%02d 12:30:00", i %>
+    arrived_at:  <%= sprintf "2008-09-%02d 16:30:00", i %>
+<% end %>
+
+# Also give each user a more recent incomplete entry
+user1_incomplete_entry:
+    user_id: 1
+    departed_at: '2008-10-01 12:30:00'
+
+user2_incomplete_entry:
+    user_id: 2
+    departed_at: '2008-10-01 12:30:00'

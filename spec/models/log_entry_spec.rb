@@ -1,9 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe LogEntry do
-  it 'should respond to class methods' do
-  end
-
   it 'should respond to log_entry attributes' do
     entry = LogEntry.new
     entry.should respond_to(:departed_at)
@@ -13,7 +10,10 @@ describe LogEntry do
     entry.should respond_to(:days_onboard)
     entry.should respond_to(:night_hours)
     entry.should respond_to(:notes)
-    entry.should belong_to(:user)
+  end
+
+  it 'should belong to a user' do
+    LogEntry.new.should belong_to(:user)
   end
 
   it 'should not be valid without a user' do

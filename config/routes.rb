@@ -37,6 +37,9 @@ ActionController::Routing::Routes.draw do |map|
 
   # OpenID authentication
   map.resource :login, :member => { :complete => :get, :destroy => :get }
+  
+  # Application resources
+  map.resources :log_entries
 
   # Default
   map.root :controller => 'log_entries'
