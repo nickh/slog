@@ -1,4 +1,6 @@
+<% id = 0 %>
 valid_entry:
+    id: <% id += 1 %>
     user_id: 1
     departed_at: "2008-08-10 12:00:00"
     arrived_at:  "2008-08-10 16:00:00"
@@ -10,11 +12,13 @@ valid_entry:
 # Pretend these two users went sailing together every day for a month
 <% (1..31).each do |i| %>
 user1_entry<%= i %>:
+    id: <%= id += 1 %>
     user_id: 1
     departed_at: <%= sprintf "2008-09-%02d 12:30:00", i %>
     arrived_at:  <%= sprintf "2008-09-%02d 16:30:00", i %>
 
 user2_entry<%= i %>:
+    id: <%= id += 1 %>
     user_id: 2
     departed_at: <%= sprintf "2008-09-%02d 12:30:00", i %>
     arrived_at:  <%= sprintf "2008-09-%02d 16:30:00", i %>
@@ -22,9 +26,12 @@ user2_entry<%= i %>:
 
 # Also give each user a more recent incomplete entry
 user1_incomplete_entry:
+    id: <%= id += 1 %>
     user_id: 1
     departed_at: '2008-10-01 12:30:00'
 
 user2_incomplete_entry:
+    id: <%= id += 1 %>
     user_id: 2
     departed_at: '2008-10-01 12:30:00'
+

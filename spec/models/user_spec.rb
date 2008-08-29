@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
-  fixtures :users
+  fixtures :users, :log_entries
 
   it 'should respond to user attributes' do
     user = User.new
@@ -13,6 +13,12 @@ describe User do
 
   it 'should have many log entries' do
     User.new.should have_many(:log_entries)
+  end
+
+  it 'should order log_entries by most to least recent' do
+    entries = User.find(:first).log_entries
+    entry_ids = entries.collect{|e| e.id}
+    entry_ids.should == entry_ids.sort.reverse
   end
 
   it "should not be valid with a duplicate OpenID identifier" do
