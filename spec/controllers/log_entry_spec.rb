@@ -9,15 +9,11 @@ describe LogEntriesController, 'index' do
     response.should be_success
   end
 
-  it 'should not return an HTML list' do
-    get :index, :format => :html
-    response.should_not be_success
+  it 'should return an HTML list' do
+    get :index
+    assigns[:entries].should_not be_nil
+    response.should be_success
   end
-
-  it 'should not return an XML list' do
-    get :index, :format => :xml
-    response.should_not be_success
-  end  
 
   describe '(with a logged in user)' do
     before(:each) do

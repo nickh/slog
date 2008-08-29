@@ -14,9 +14,9 @@ class LogEntriesController < ApplicationController
       )
     end
 
-    # The only currently supported format is JSON
     respond_to do |format|
-      format.json { render :json => @entries }
+      format.html
+      format.json { render :json => {:entries => @entries } }
     end
   end
 end
