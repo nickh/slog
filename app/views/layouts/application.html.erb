@@ -6,6 +6,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" media="all"/>
 	
+	<%= javascript_include_tag :all %>
+
+	<%= stylesheet_link_tag    "/ext/resources/css/ext-all.css" %>
+	<%= javascript_include_tag "/ext/adapter/prototype/ext-prototype-adapter.js" %>
+	<%= javascript_include_tag "/ext/ext-all-debug.js" %>
+
 	<%= @content_for_header %>
 	
 	<title>Sailing Log</title>
@@ -13,15 +19,26 @@
 </head>
 
 <body>
-	<h1>
-	<% if @current_user %>
-		<%= link_to 'Logout', :controller => 'login', :action => 'destroy' %>
-	<% else %>
-		<%= link_to 'Login', login_path %>
-	<% end %>
+	<div id="header">
+		<span id="title">Your Sailing Log</span>
+		<span id="user-options">
+			<% if @current_user %>
+				<%= render :partial => 'shared/logged_in_user' %>
+			<% else %>
+				<%= render :partial => 'shared/guest_user' %>
+			<% end %>
+		</span>
 	</h1>
-	<hr>
-	<%= yield %>
+	</div>
+
+	<div id="content">
+		<%= yield %>
+	</div>
+
+	<div id="footer">
+		<span id="about">About this app</span>
+	</div>
+
 </body>
 
 </html>

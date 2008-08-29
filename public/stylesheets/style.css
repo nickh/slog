@@ -1,0 +1,22 @@
+body { background-color: #dfd;}
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   12px;
+}
+
+#header {
+	font-size: 18px;
+	color: #33f;
+}
+
+#content {
+	margin-left: 5;
+	margin-right: 5;
+	background-color: #fff;
+}
+
+#footer {
+	font-size: 10px;
+	color: #33f;
+}
