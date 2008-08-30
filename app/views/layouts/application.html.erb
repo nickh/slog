@@ -19,26 +19,27 @@
 </head>
 
 <body>
-	<div id="header">
-		<span id="title">Your Sailing Log</span>
-		<span id="user-options">
-			<% if @current_user %>
-				<%= render :partial => 'shared/logged_in_user' %>
-			<% else %>
-				<%= render :partial => 'shared/guest_user' %>
-			<% end %>
-		</span>
-	</h1>
+	<div id="slog">
+		<div id="header">
+			<span id="title">Your Sailing Log</span>
+			<span id="user-options">
+				<% if @current_user %>
+					<%= render :partial => 'shared/logged_in_user' %>
+				<% else %>
+					<%= render :partial => 'shared/guest_user' %>
+				<% end %>
+			</span>
+		</h1>
+		</div>
+    	
+		<div id="content">
+			<%= yield %>
+		</div>
+    	
+		<div id="footer">
+			<span id="about">About this app</span>
+		</div>
 	</div>
-
-	<div id="content">
-		<%= yield %>
-	</div>
-
-	<div id="footer">
-		<span id="about">About this app</span>
-	</div>
-
 </body>
 
 </html>

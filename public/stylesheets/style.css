@@ -1,8 +1,12 @@
-body { background-color: #dfd;}
+body { background-color: #fff;}
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   12px;
+}
+
+#slog {
+	background-color: #dfd;
 }
 
 #header {
@@ -19,4 +23,8 @@ body, p, ol, ul, td {
 #footer {
 	font-size: 10px;
 	color: #33f;
+}
+
+.user-options {
+	text-align: right;
 }
