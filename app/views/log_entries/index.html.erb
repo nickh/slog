@@ -1,1 +1,24 @@
-These are log entries
+<div id="log-entries">
+	<div id="log-entries-nav">
+		<%= link_to 'Add a log entry', new_log_entry_url %>
+	</div>
+	<table class="log-entries">
+		<tr>
+			<th>Trip Time</th>
+			<th>Origin/Dest</th>
+			<th>Notes</th>
+		</tr>
+		<% @entries.each do |entry| %>
+			<tr>
+				<td><%= trip_time(entry) %></td>
+				<td>
+					<%= entry.origin %>
+					<% if entry.destination && !entry.destination.blank? && entry.destination != entry.origin %>
+					 to <%= entry.destination %>
+					<% end %>
+				</td>
+				<td><%= entry.notes %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
