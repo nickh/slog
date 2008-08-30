@@ -19,4 +19,31 @@ class LogEntriesController < ApplicationController
       format.json { render :json => {:entries => @entries } }
     end
   end
+
+  # Provide a basic view for adding new log entries
+  def new
+    if @current_user
+      @entry = LogEntry.new
+    else
+      flash[:error] = 'You must be logged in to add log entries'
+    end
+    respond_to {|format| format.html}
+  end
+
+  # Create a new log entry
+  def create
+    if @current_user
+      begin
+        @entry = LogEntry.new(params[:log_entry])
+        @entry.user = @current_user
+        @entry.save!
+        return redirect_to(:action => :index)
+      rescue Exception => e
+        flash[:error] = "Unable to create log entry: #{e}"
+      end
+    else
+      flash[:error] = 'You must be logged in to add log entries'
+    end
+    respond_to {|format| format.html}
+  end
 end

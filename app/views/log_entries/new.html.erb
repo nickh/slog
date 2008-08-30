@@ -1,0 +1,33 @@
+New Log Entry
+
+<% form_for(LogEntry.new) do |f| %>
+	<p>
+	Departure:
+	<%= f.label :origin     , 'From' %><%= f.text_field :origin      %> 
+	<%= f.label :departed_at, 'At'   %><%= f.text_field :departed_at %>
+	</p>
+
+	<p>
+	Voyage:
+	<%= f.label :days_onboard %>
+	<%= f.text_field :days_onboard %>
+	<br />
+	<%= f.label :night_hours %>
+	<%= f.text_field :night_hours %>
+	</p>
+
+	<p>
+	Arrival: 
+	<%= f.label :destination, 'To' %><%= f.text_field :destination %> 
+	<%= f.label :arrived_at , 'At' %><%= f.text_field :arrived_at  %><br />
+	</p>
+
+	<p>
+	<%= f.label :notes, 'Notes' %>
+	<%= f.text_area :notes %>
+	</p>
+
+	<p>
+	<%= submit_tag 'Create' %>
+	</p>
+<% end %>
