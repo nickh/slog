@@ -126,6 +126,29 @@ describe LogEntriesController do
     it 'should not route an update request without an id' do
       lambda{ get :update }.should raise_error
     end
+
+    it 'should destroy an existing entry' do
+      entry = LogEntry.find(:first, :conditions => ['user_id = ?', session[:user].id])
+      get :destroy, :id => entry.id
+      flash[:notice].should_not be_nil
+      flash[:error].should be_nil
+      response.should be_redirect
+      LogEntry.count(:conditions => "id = #{entry.id}").should == 0
+    end
+
+    it "should not destroy another user's entry" do
+      entry = LogEntry.find(:first, :conditions => ['user_id != ?', session[:user].id])
+      get :destroy, :id => entry.id
+      flash[:notice].should be_nil
+      flash[:error].should_not be_nil
+      response.should be_redirect
+      LogEntry.count(:conditions => "id = #{entry.id}").should == 1
+    end
+    
+    it 'should not route a destroy a destroy request without an id' do
+      lambda{ get :destroy }.should raise_error
+    end
+
   end
 
   describe '(with a guest account)' do
@@ -175,6 +198,12 @@ describe LogEntriesController do
       entry = log_entries(:valid_entry)
       post :update, :id => entry.id, :log_entry => entry.attributes
       assigns[:entry].should be_nil
+      response.response_code.should == 401
+    end
+
+    it 'should not delete an existing log entry' do
+      entry = log_entries(:valid_entry)
+      get :destroy, :id => entry.id
       response.response_code.should == 401
     end
   end

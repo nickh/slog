@@ -71,4 +71,19 @@ class LogEntriesController < ApplicationController
 
     respond_to {|format| format.html}
   end
+
+  # Destroy an existing log entry
+  def destroy
+    begin
+      @entry = @current_user.log_entries.find(params[:id])
+      @entry.destroy
+      flash[:notice] = "Deleted log entry id #{params[:id]}"
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Unable to find log entry with id #{params[:id]}"
+    rescue Exception => e
+      flash[:error] = "Unable to delete log entry: #{e}"
+    end
+
+    redirect_to :action => :index
+  end
 end
