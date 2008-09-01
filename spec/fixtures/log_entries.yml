@@ -1,6 +1,6 @@
 <% id = 0 %>
 valid_entry:
-    id: <% id += 1 %>
+    id: <%= id += 1 %>
     user_id: 1
     departed_at: "2008-08-10 12:00:00"
     arrived_at:  "2008-08-10 16:00:00"
