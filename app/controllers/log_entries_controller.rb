@@ -41,4 +41,34 @@ class LogEntriesController < ApplicationController
 
     return redirect_to(:action => :index)
   end
+
+  # Edit an existing log entry
+  def edit
+    begin
+      @entry = LogEntry.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Unable to find log entry with id #{params[:id]}"
+      return redirect_to(:action => :index)
+    end
+
+    respond_to {|format| format.html}
+  end
+
+  # Update an existing log entry
+  def update
+    begin
+      @entry = @current_user.log_entries.find(params[:id])
+      @entry.update_attributes! params[:log_entry]
+      flash[:notice] = "Log entry updated"
+      return redirect_to(:action => :index)
+    rescue ActiveRecord::RecordNotFound
+      @entry = nil
+      flash[:error] = "Unable to find log entry with id #{params[:id]}"
+      return redirect_to(:action => :index)
+    rescue Exception => e
+      flash[:error] = "Unable to update log entry: #{e}"
+    end
+
+    respond_to {|format| format.html}
+  end
 end
