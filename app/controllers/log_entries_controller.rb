@@ -1,4 +1,6 @@
 class LogEntriesController < ApplicationController
+  before_filter :require_logged_in_user, :except => :index
+
   def index
     # If the request is from a logged-in user, show their full list of
     # log entries; otherwise show a list of the 20 most recent completed
@@ -22,28 +24,21 @@ class LogEntriesController < ApplicationController
 
   # Provide a basic view for adding new log entries
   def new
-    if @current_user
-      @entry = LogEntry.new
-    else
-      flash[:error] = 'You must be logged in to add log entries'
-    end
+    @entry = LogEntry.new
     respond_to {|format| format.html}
   end
 
   # Create a new log entry
   def create
-    if @current_user
-      begin
-        @entry = LogEntry.new(params[:log_entry])
-        @entry.user = @current_user
-        @entry.save!
-        return redirect_to(:action => :index)
-      rescue Exception => e
-        flash[:error] = "Unable to create log entry: #{e}"
-      end
-    else
-      flash[:error] = 'You must be logged in to add log entries'
+    begin
+      @entry = LogEntry.new(params[:log_entry])
+      @entry.user = @current_user
+      @entry.save!
+      flash[:notice] = "New log entry created"
+    rescue Exception => e
+      flash[:error] = "Unable to create log entry: #{e}"
     end
-    respond_to {|format| format.html}
+
+    return redirect_to(:action => :index)
   end
 end

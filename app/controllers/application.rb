@@ -16,4 +16,11 @@ class ApplicationController < ActionController::Base
     # TODO: session expiration
     @current_user = session[:user]
   end
+
+  def require_logged_in_user
+    if @current_user.nil?
+      render :text => 'Permission denied', :status => 401
+    end
+  end
+
 end
