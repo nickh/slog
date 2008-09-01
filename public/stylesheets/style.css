@@ -10,21 +10,77 @@ body, p, ol, ul, td {
 }
 
 #header {
-	font-size: 18px;
 	color: #33f;
+	padding-bottom: 35px;
+}
+
+#header #title { 
+	font-size: 20px;
+	display: inline;
+	position: absolute;
+	margin-left: 5px;
+	top: 5px;
+}
+
+#header #user-options { 
+	font-size: 10px;
+	text-align: right;
+	position:absolute;
+	top: 5px;
+	right: 5px;
+}
+
+#user-options ul {
+	list-style-type: none;
+}
+
+#user-options li {
+	display: inline;
+}
+
+#flash #p .error {
+	background-color: #fdd;
+	border: 1px solid #f33;
+}
+
+#flash #p .warning {
+	background-color: #dff;
+	border: 1px solid #3ff;
+}
+
+#flash #p .notice {
+	background-color: #dfd;
+	border: 1px solid #3f3;
 }
 
 #content {
-	margin-left: 5;
-	margin-right: 5;
+	margin-left: 5px;
+	margin-right: 5px;
 	background-color: #fff;
+}
+
+#log-entries {
+	margin: 0;
+	border: 1px solid #aaa;
+}
+
+#log-entries td {
+	margin: 0px;
+	padding: 3px;
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+}
+
+#log-entries th {
+	margin: 0px;
+	padding: 3px;
+	background-color :#ddf;
+	font-weight: bold;
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
 }
 
 #footer {
 	font-size: 10px;
 	color: #33f;
-}
-
-.user-options {
-	text-align: right;
 }

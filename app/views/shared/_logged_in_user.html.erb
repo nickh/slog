@@ -1,1 +1,5 @@
-Logged in as <%= @current_user.fullname %>
+Logged in as <%= @current_user.fullname %><br />
+<ul>
+<li><%= link_to 'logout', logout_path %></li>
+<li><%= link_to 'options', '/user/options' %></li>
+</ul>

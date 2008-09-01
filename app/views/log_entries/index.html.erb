@@ -1,12 +1,12 @@
 <div id="log-entries">
-	<div id="log-entries-nav">
-		<%= link_to 'Add a log entry', new_log_entry_url %>
-	</div>
 	<table class="log-entries">
 		<tr>
 			<th>Trip Time</th>
 			<th>Origin/Dest</th>
 			<th>Notes</th>
+			<th><% if @current_user %>
+					<%= link_to image_tag('book_add.png', :alt => 'Add'), new_log_entry_url %>
+				<% end %></th>
 		</tr>
 		<% @entries.each do |entry| %>
 			<tr>
@@ -18,6 +18,12 @@
 					<% end %>
 				</td>
 				<td><%= entry.notes %></td>
+				<td><% if @current_user %>
+						<%= link_to image_tag('book_edit.png',   :alt => 'Edit'), edit_log_entry_url(entry) %>
+						<%= link_to image_tag('book_delete.png', :alt => 'Delete'),
+						            destroy_log_entry_url(entry),
+						            :confirm => 'Are you sure you want to delete this entry?' %>
+					<% end %></td>
 			</tr>
 		<% end %>
 	</table>

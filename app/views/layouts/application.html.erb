@@ -21,17 +21,23 @@
 <body>
 	<div id="slog">
 		<div id="header">
-			<span id="title">Your Sailing Log</span>
-			<span id="user-options">
+			<div id="title">Your Sailing Log</div>
+			<div id="user-options">
 				<% if @current_user %>
 					<%= render :partial => 'shared/logged_in_user' %>
 				<% else %>
 					<%= render :partial => 'shared/guest_user' %>
 				<% end %>
-			</span>
+			</div>
 		</h1>
 		</div>
     	
+		<div id="flash">
+			<% if flash[:error]  %><p class='error'  ><%= flash[:error]   %></p><% end %>
+			<% if flash[:warning]%><p class='warning'><%= flash[:warning] %></p><% end %>
+			<% if flash[:notice] %><p class='notice' ><%= flash[:notice]  %></p><% end %>
+		</div>
+
 		<div id="content">
 			<%= yield %>
 		</div>
