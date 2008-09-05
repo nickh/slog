@@ -9,7 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080817150202) do
+ActiveRecord::Schema.define(:version => 20080903044808) do
+
+  create_table "boat_models", :force => true do |t|
+    t.string "name"
+    t.string "notes"
+  end
+
+  create_table "boats", :force => true do |t|
+    t.string  "name"
+    t.string  "notes"
+    t.integer "boat_model_id"
+  end
 
   create_table "log_entries", :force => true do |t|
     t.datetime "created_at"
@@ -31,8 +42,8 @@ ActiveRecord::Schema.define(:version => 20080817150202) do
     t.datetime "updated_at"
   end
 
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string "openid_identifier"

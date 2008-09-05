@@ -1,0 +1,4 @@
+valid_boat:
+    id: 1
+    boat_model_id: 1
+    name: "B3"
