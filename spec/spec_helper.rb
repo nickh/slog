@@ -47,3 +47,49 @@ Spec::Runner.configure do |config|
 
   config.include(ActiveRecordMatchers)
 end
+
+# Helper methods
+def login(user_id = :first)
+  @test_user = User.find(user_id)
+  session[:user] = @test_user
+end
+
+def logout
+  session[:user] = nil
+end
+
+def create_mock_valid(klass, options={})
+  mock_object = mock_model(klass) do |obj|
+    obj.should_receive(:save!).and_return(true)
+  end
+  klass.stub!(:new).and_return(mock_object)
+
+  yield
+
+  if verify_assigns = options[:verify_assigns]
+    verify_assigns = [verify_assigns] unless verify_assigns.is_a? Array
+    verify_assigns.each do |a|
+      assigns[a].should_not be_nil
+    end
+  end
+  flash[:notice].should_not be_nil
+  flash[:error].should be_nil
+end
+
+def create_mock_invalid(klass, options={})
+  mock_object = mock_model(klass) do |obj|
+    obj.should_receive(:save!).and_raise(ActiveRecord::RecordInvalid)
+  end
+  klass.stub!(:new).and_return(mock_object)
+
+  yield
+
+  if assigns = options[:assigns]
+    assigns = [assigns] unless assigns.is_a? Array
+    assigns.each do |a|
+      assigns[a].should_not be_nil
+    end
+  end
+  flash[:notice].should be_nil
+  flash[:error].should_not be_nil
+end

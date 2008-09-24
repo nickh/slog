@@ -6,6 +6,9 @@ ActionController::Routing::Routes.draw do |map|
   # Application resources
   map.resources :log_entries, :member => {:destroy => :get}
 
+  # Boat resources
+  map.connect '/boats/:action', :controller => 'boats'
+
   # Default
   map.root :controller => 'log_entries'
 end

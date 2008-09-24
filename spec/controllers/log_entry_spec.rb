@@ -1,16 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-# Helper methods
-def login(user_id = :first)
-  @test_user = User.find(user_id)
-  session[:user] = @test_user
-end
-
-def logout
-  session[:user] = nil
-end
-
-
 describe LogEntriesController do
   fixtures :log_entries, :users
 
