@@ -9,9 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080903044808) do
+ActiveRecord::Schema.define(:version => 20080924024430) do
 
   create_table "boat_models", :force => true do |t|
+    t.string "name"
+    t.string "notes"
+  end
+
+  create_table "boat_owners", :force => true do |t|
     t.string "name"
     t.string "notes"
   end
@@ -20,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20080903044808) do
     t.string  "name"
     t.string  "notes"
     t.integer "boat_model_id"
+    t.integer "boat_owner_id"
   end
 
   create_table "log_entries", :force => true do |t|
@@ -33,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20080903044808) do
     t.integer  "night_hours"
     t.text     "notes"
     t.integer  "user_id"
+    t.integer  "boat_id"
   end
 
   create_table "sessions", :force => true do |t|

@@ -5,6 +5,7 @@ associated with a User.
 
 class LogEntry < ActiveRecord::Base
   belongs_to :user
+  belongs_to :boat
 
   validates_presence_of :user
 end

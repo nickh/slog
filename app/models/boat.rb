@@ -6,6 +6,9 @@ in a log entry.
 
 class Boat < ActiveRecord::Base
   belongs_to :boat_model
+  belongs_to :boat_owner
+  has_many :log_entries
 
   validates_uniqueness_of :name
+  validates_presence_of :boat_model
 end

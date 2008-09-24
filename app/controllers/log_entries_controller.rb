@@ -36,6 +36,7 @@ class LogEntriesController < ApplicationController
       @entry.save!
       flash[:notice] = "New log entry created"
     rescue Exception => e
+      RAILS_DEFAULT_LOGGER.info "error creating log entry: #{e}"
       flash[:error] = "Unable to create log entry: #{e}"
     end
 
