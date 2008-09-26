@@ -66,6 +66,13 @@ describe LogEntriesController do
       response.should be_success
     end
 
+    it "should not return an edit log_entry form for another user's entry" do
+      entry = LogEntry.find(:first, :conditions => ['user_id != ?', session[:user].id])
+      get :edit, :id => entry.id
+      flash[:error].should_not be_nil
+      response.should be_redirect
+    end
+
     it 'should not return an edit log_entry form for a nonexistent entry' do
       entry = LogEntry.find(:first)
       entry.destroy
@@ -75,7 +82,7 @@ describe LogEntriesController do
     end
 
     it 'should not route an edit request without an id' do
-      lambda{ get :edit }.should raise_error
+      lambda{ get :edit }.should raise_error(ActionController::RoutingError)
     end
 
     it 'should update a log entry with valid parameters' do
@@ -113,7 +120,7 @@ describe LogEntriesController do
     end
 
     it 'should not route an update request without an id' do
-      lambda{ get :update }.should raise_error
+      lambda{ get :update }.should raise_error(ActionController::RoutingError)
     end
 
     it 'should destroy an existing entry' do

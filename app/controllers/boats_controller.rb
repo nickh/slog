@@ -2,9 +2,19 @@ class BoatsController < ApplicationController
   before_filter :require_logged_in_user, :except => :index
 
   def index
+    @boats  = Boat.find(:all)
+    @owners = BoatOwner.find(:all)
+    @models = BoatModel.find(:all)
   end
 
-  def create_boat
+  # Display a form for adding a boat
+  def new
+    @boat = Boat.new
+    respond_to {|format| format.html}
+  end
+
+  # Create a new boat
+  def create
     begin
       @boat = Boat.new(params[:boat])
       @boat.save!
@@ -17,6 +27,39 @@ class BoatsController < ApplicationController
     return redirect_to(:action => :index)
   end
 
+  # Edit an existing boat
+  def edit
+    begin
+      @boat = Boat.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "Unable to find boat with id #{params[:id]}"
+      return redirect_to(:action => :index)
+    end
+
+    respond_to {|format| format.html}
+  end
+
+  # Update an existing boat
+  def update
+    begin
+      @boat = Boat.find(params[:id])
+      @boat.update_attributes! params[:boat]
+      flash[:notice] = "Boat updated"
+      return redirect_to(:action => :index)
+    rescue ActiveRecord::RecordNotFound
+      @entry = nil
+      flash[:error] = "Unable to find boat with id #{params[:id]}"
+      return redirect_to(:action => :index)
+    rescue Exception => e
+      flash[:error] = "Unable to update boat: #{e}"
+    end
+
+    respond_to do |format|
+      format.html { render :action => :edit }
+    end
+  end
+
+  # Add a boat model
   def create_model
     begin
       @model = BoatModel.new(params[:model])
@@ -30,6 +73,7 @@ class BoatsController < ApplicationController
     return redirect_to(:action => :index)
   end
 
+  # Add a boat owner
   def create_owner
     begin
       @owner = BoatOwner.new(params[:owner])

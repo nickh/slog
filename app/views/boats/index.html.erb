@@ -1,0 +1,36 @@
+<% form_for BoatOwner.new, :url => :controller => 'boats', :action => 'create_owner' do |f| %>
+	Add boat owner: <%= f.text_field :name %>
+<% end %>
+
+<hr />
+
+<% form_for BoatModel.new, :url => :controller => 'boats', :action => 'create_model' do |f| %>
+	Add boat model: <%= f.text_field :name %>
+<% end %>
+
+<hr />
+
+<div id="boats">
+	<table class="boats">
+		<tr>
+			<th>Name</th>
+			<th>Model</th>
+			<th>Owner</th>
+			<th>Notes</th>
+			<th><% if @current_user %>
+					<%= link_to image_tag('book_add.png', :alt => 'Add'), new_boat_url %>
+				<% end %></th>
+		</tr>
+		<% @boats.each do |boat| %>
+			<tr>
+				<td><%= boat.name %></td>
+				<td><%= boat.boat_model %></td>
+				<td><%= boat.boat_owner %></td>
+				<td><%= boat.notes %></td>
+				<td><% if @current_user %>
+						<%= link_to image_tag('book_edit.png',   :alt => 'Edit'), edit_boat_url(boat) %>
+					<% end %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
