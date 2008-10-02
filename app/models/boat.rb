@@ -11,4 +11,16 @@ class Boat < ActiveRecord::Base
 
   validates_uniqueness_of :name
   validates_presence_of :boat_model
+
+  def owner
+    self.boat_owner.name rescue ''
+  end
+
+  def model
+    self.boat_model.name rescue ''
+  end
+
+  def description
+    '%s (%s %s)' % [self.name, self.owner, self.model]
+  end
 end

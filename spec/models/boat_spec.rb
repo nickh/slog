@@ -7,6 +7,10 @@ describe Boat do
     boat = Boat.new
     boat.should respond_to(:name)
     boat.should respond_to(:notes)
+
+    boat.should respond_to(:owner)
+    boat.should respond_to(:model)
+    boat.should respond_to(:description)
   end
 
   it "should not be valid with a duplicate name" do

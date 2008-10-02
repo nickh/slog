@@ -6,8 +6,6 @@ describe BoatsController do
   it 'should display a list of boats' do
     get :index
     assigns[:boats].should_not be_nil
-    assigns[:owners].should_not be_nil
-    assigns[:models].should_not be_nil
     response.should render_template(:index)
   end
 
@@ -18,14 +16,6 @@ describe BoatsController do
 
     it 'should not respond to destroy' do
       lambda {get :destroy, :id => boats(:valid_boat).id}.should raise_error(ActionController::UnknownAction)
-    end
-
-    it 'should return a new boat form' do
-      get :new
-      assigns[:boat].should_not be_nil
-      flash[:error].should be_nil
-      response.should be_success
-      response.should render_template(:new)
     end
 
     it 'should add a valid boat' do

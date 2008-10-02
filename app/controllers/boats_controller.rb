@@ -3,14 +3,6 @@ class BoatsController < ApplicationController
 
   def index
     @boats  = Boat.find(:all)
-    @owners = BoatOwner.find(:all)
-    @models = BoatModel.find(:all)
-  end
-
-  # Display a form for adding a boat
-  def new
-    @boat = Boat.new
-    respond_to {|format| format.html}
   end
 
   # Create a new boat
@@ -62,7 +54,7 @@ class BoatsController < ApplicationController
   # Add a boat model
   def create_model
     begin
-      @model = BoatModel.new(params[:model])
+      @model = BoatModel.new(params[:boat_model])
       @model.save!
       flash[:notice] = "New boat model created"
     rescue Exception => e
@@ -76,7 +68,7 @@ class BoatsController < ApplicationController
   # Add a boat owner
   def create_owner
     begin
-      @owner = BoatOwner.new(params[:owner])
+      @owner = BoatOwner.new(params[:boat_owner])
       @owner.save!
       flash[:notice] = "New boat owner created"
     rescue Exception => e

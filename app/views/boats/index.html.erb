@@ -1,31 +1,38 @@
-<% form_for BoatOwner.new, :url => :controller => 'boats', :action => 'create_owner' do |f| %>
-	Add boat owner: <%= f.text_field :name %>
-<% end %>
-
-<hr />
-
-<% form_for BoatModel.new, :url => :controller => 'boats', :action => 'create_model' do |f| %>
-	Add boat model: <%= f.text_field :name %>
-<% end %>
-
-<hr />
-
-<div id="boats">
-	<table class="boats">
+<div id="resource-list">
+	<table class="datatable">
 		<tr>
 			<th>Name</th>
-			<th>Model</th>
-			<th>Owner</th>
+			<th>Owner<% if @current_user %>
+				<% form_for BoatOwner.new, :url => {:controller => 'boats', :action => 'create_owner'} do |f| %>
+					<%= f.text_field :name %>
+					<%= submit_tag 'Add Owner' %>
+				<% end %>
+			<% end %></th>
+			<th>Model<% if @current_user %>
+				<% form_for BoatModel.new, :url => {:controller => 'boats', :action => 'create_model'} do |f| %>
+					<%= f.text_field :name %>
+					<%= submit_tag 'Add Model'%>
+				<% end %>
+			<% end %></th>
 			<th>Notes</th>
-			<th><% if @current_user %>
-					<%= link_to image_tag('book_add.png', :alt => 'Add'), new_boat_url %>
-				<% end %></th>
+			<th></th>
 		</tr>
+		<% if @current_user %>
+			<tr>
+				<% form_for Boat.new do |f| %>
+					<td><%= f.text_field :name %></td>
+					<td><%= select('boat','boat_owner_id', BoatOwner.find(:all).collect{|o| [o.name,o.id]})%></td>
+					<td><%= select('boat','boat_model_id', BoatModel.find(:all).collect{|m| [m.name,m.id]})%></td>
+					<td><%= f.text_field :notes %></td>
+					<td><%= submit_tag 'Add Boat' %></td>
+				<% end %>
+			</tr>
+		<% end %>
 		<% @boats.each do |boat| %>
 			<tr>
 				<td><%= boat.name %></td>
-				<td><%= boat.boat_model %></td>
-				<td><%= boat.boat_owner %></td>
+				<td><%= boat.boat_owner.name %></td>
+				<td><%= boat.boat_model.name %></td>
 				<td><%= boat.notes %></td>
 				<td><% if @current_user %>
 						<%= link_to image_tag('book_edit.png',   :alt => 'Edit'), edit_boat_url(boat) %>

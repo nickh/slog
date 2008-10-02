@@ -1,5 +1,8 @@
 <% form_for(@entry) do |f| %>
 	<p>
+	Boat: <%= select('entry', 'boat_id', Boat.find(:all).collect {|b| [b.description, b.id]}) %>
+
+	<p>
 	Departure:
 	<%= f.label :origin     , 'From' %><%= f.text_field :origin      %> 
 	<%= f.label :departed_at, 'At'   %><%= f.text_field :departed_at %>

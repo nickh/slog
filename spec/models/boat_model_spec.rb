@@ -19,6 +19,14 @@ describe BoatModel do
     new_model.should_not be_valid
   end
 
+  it 'should not be valid with a nil name' do
+    BoatModel.new(:name => nil).should_not be_valid
+  end
+
+  it 'should not be valid with an empty name' do
+    BoatModel.new(:name => '').should_not be_valid
+  end
+
   it "should be valid with a unique name" do
     existing_model = BoatModel.find(:first)
     existing_model.destroy

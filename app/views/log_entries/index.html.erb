@@ -1,6 +1,7 @@
-<div id="log-entries">
-	<table class="log-entries">
+<div id="resource-list">
+	<table class="datatable">
 		<tr>
+			<th>Boat</th>
 			<th>Trip Time</th>
 			<th>Origin/Dest</th>
 			<th>Notes</th>
@@ -10,6 +11,7 @@
 		</tr>
 		<% @entries.each do |entry| %>
 			<tr>
+				<td><%= entry.boat.description %></td>
 				<td><%= trip_time(entry) %></td>
 				<td>
 					<%= entry.origin %>

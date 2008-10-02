@@ -59,19 +59,19 @@ body, p, ol, ul, td {
 	background-color: #fff;
 }
 
-#log-entries {
+#resource-list {
 	margin: 0;
 	border: 1px solid #aaa;
 }
 
-#log-entries td {
+table.datatable td {
 	margin: 0px;
 	padding: 3px;
 	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 }
 
-#log-entries th {
+table.datatable th {
 	margin: 0px;
 	padding: 3px;
 	background-color :#ddf;

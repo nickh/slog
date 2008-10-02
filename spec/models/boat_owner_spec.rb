@@ -19,6 +19,14 @@ describe BoatOwner do
     new_owner.should_not be_valid
   end
 
+  it 'should not be valid with a nil name' do
+    BoatOwner.new(:name => nil).should_not be_valid
+  end
+
+  it 'should not be valid with an empty name' do
+    BoatOwner.new(:name => '').should_not be_valid
+  end
+
   it "should be valid with a unique name" do
     existing_owner = BoatOwner.find(:first)
     existing_owner.destroy
